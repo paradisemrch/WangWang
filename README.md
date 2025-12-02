@@ -42,14 +42,15 @@ wang_wang_project/
 
 4. 通知 ：若判定有遺漏，透過 LINE Messaging API 發送推播通知至使用者手機。
 
-5. 待機 : reset
+5. 待機 : reset -> PIR 紅外線感測器
 
 ## 接線圖
 
 ![架構](src/resberry_pi.png)
 
-1. 硬體接線示意圖本專案採用特殊的腳位配置以避免 PIR 與 RFID 的電源衝突，請務必依照圖表連接。
+硬體接線示意圖本專案採用特殊的腳位配置以避免 PIR 與 RFID 的電源衝突，請務必依照圖表連接。
 
+```
    - 連接線：PIR（紅外線感測器 PIR）
      P2 --- PIR_VCC
      P6 --- PIR_OUT
@@ -66,6 +67,7 @@ wang_wang_project/
 
    - 連接線：相機
      CSI_PORT === CAM_Cable
+```
 
 ### 詳細介接內容
 
