@@ -1,0 +1,9 @@
+flask==3.0.3
+requests
+opencv-python-headless
+pyserial
+spidev
+mfrc522
+RPi.GPIO
+
+
