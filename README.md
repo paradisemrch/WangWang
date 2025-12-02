@@ -158,4 +158,4 @@ PORT=5001 python main.py
 
 # 敬請期待
 
-![version2](src/version2.png)
+![version2](src/version2.jpg)
