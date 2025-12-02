@@ -14,6 +14,7 @@ WANG WANG (忘忘仙貝) 是一個結合 IoT 技術的智慧出門提醒系統�
 
 ## 專案結構
 
+```
 wang_wang_project/
 ├── main.py # [後端核心] 整合 Flask Server 與 感測器邏輯執行緒
 ├── data.json # [資料庫] 儲存物品清單、LINE Token、開關設定
@@ -22,6 +23,7 @@ wang_wang_project/
 │ └── index.html # [前端介面] 無光晚餐風格 Web App (HTML/CSS/JS)
 └── src/
 └── 圖片.png # [資源] 專案海報圖片
+```
 
 ### 核心運作流程
 
@@ -131,7 +133,7 @@ PORT=5001 python main.py
 
 ### 暗黑模式
 
-![暗黑](src/lisght.png)
+![暗黑](src/light.png)
 
 ```
 快速開始(Quick Start)確認接線：請依照上方接線圖確認硬體無誤。
