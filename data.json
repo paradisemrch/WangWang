@@ -1,12 +1,12 @@
 {
   "system_enabled": true,
-  "line_token": "knzw2SGEpKbrWyi3hZu1CqRffPLoAj8h54lmK871/rvZ9N1fyX/7y3gvF58Y9ADsPNqJzemRq6ky7/NqI8sKVazxKySM5K2mfRtBB9qgWVQavNN2Tq4aQ/Z33fkbXiDYN7sYvwmDwt1U/j4gkPctIQdB04t89/1O/w1cDnyilFU=",
-  "line_user_id": "U1c0569e89bd67929f88c12d84d4dc8ac",
+  "line_token": "YOUR_LINE_TOKEN",
+  "line_user_id": "YOUR_LINE_USER_ID",
   "items": [
     {
       "id": "item_001",
       "name": "鑰匙",
-      "mac": "AA:BB:CC:11:22:33",
+      // "mac": "AA:BB:CC:11:22:33",  for version 2
       "start_time": "08:00",
       "end_time": "19:00",
       "enabled": true

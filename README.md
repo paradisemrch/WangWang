@@ -17,8 +17,6 @@ WANG WANG (忘忘仙貝) 是一個結合 IoT 技術的智慧出門提醒系統�
 
 讓使用者在忙碌的生活中，再次回到從從容容，游刃有餘！
 
-### 裝置圖
-
 <!-- ![忘忘仙貝](src/version1.png) -->
 
 ## 專案結構
@@ -44,8 +42,8 @@ wang_wang_project/
 
 3. 盤點 ：檢視後端資料是否有開啟物品偵測，若有啟動 RFID 讀卡機 掃描玄關置物區。若無則恢復待機。
 
-- 邏輯 ：若掃描到標籤 ID → 代表物品還在感測區內（未帶走）→ 判定為遺漏。
-- 邏輯 ：若掃描不到標籤 ID → 代表物品已離開感測區 → 判定為已帶走。
+- Y 邏輯 ：若掃描到標籤 ID → 代表物品還在感測區內（未帶走）→ 判定為遺漏。
+- N 邏輯 ：若掃描不到標籤 ID → 代表物品已離開感測區 → 判定為已帶走。
 
 4. 通知 ：若判定有遺漏，透過 LINE Messaging API 發送推播通知至使用者手機。
 
@@ -102,7 +100,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 1. 建議使用現有虛擬環境 `.venv`。
 
-2. 安裝依賴（如尚未安裝）(註：requirements.txt 內容包含 flask, requests, opencv-python-headless, spidev, mfrc522, pyserial)
+2. 安裝套件已寫在 requirements.txt（如尚未安裝）(內容包含 flask, requests, opencv-python-headless, spidev, mfrc522, pyserial)
 
 ```bash
 
@@ -119,7 +117,7 @@ pip install -r requirements.txt
 python main.py
 
 
-### 或指定其他埠避免衝突
+### 若有衝突可指定其他port
 
 PORT=5001 python main.py
 
