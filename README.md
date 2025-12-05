@@ -8,9 +8,16 @@
 
 WANG WANG (忘忘仙貝) 是一個結合 IoT 技術的智慧出門提醒系統。
 
+```
+本來應該從從容容，游刃有餘。
+現在是匆匆忙忙，忘東忘西。
+```
+
 本專案運行於 Raspberry Pi 4，透過多重感測器邏輯，優雅地解決現代人出門口令手機、鑰匙、錢包、煙...等等，將「被提醒」這件事，轉化為一種從容的體驗。系統隱身於背景運作，僅在您確實遺漏物品時，透過優雅的介面與 LINE 推播進行通知。
 
-讓忠孝東路不再走九遍，讓因遺忘而返家機會大幅下降。
+讓使用者在忙碌的生活中，再次回到從從容容，游刃有餘！
+
+### 裝置圖
 
 <!-- ![忘忘仙貝](src/version1.png) -->
 
@@ -197,7 +204,8 @@ python3 main.py
 1. [Raspberry Pi GPIO](https://pinout.xyz/)
 2. [Pinoutpi-rc522](https://github.com/ondryaso/pi-rc522)
 3. [LibraryLINE Messaging API Documentation](https://developers.line.biz/en/docs/messaging-api/)
+4. [RaspberryPi 使用 RFID-RC522 讀取與寫入磁卡與磁扣](https://sites.google.com/view/zsgititit/home/%E7%A1%AC%E9%AB%94%E5%AF%A6%E4%BD%9C/raspberry-shu-mei-pai/raspberrypi%E4%BD%BF%E7%94%A8rfid-rc522%E8%AE%80%E5%8F%96%E8%88%87%E5%AF%AB%E5%85%A5%E7%A3%81%E5%8D%A1%E8%88%87%E7%A3%81%E6%89%A3)
 
-# 敬請期待
+# 敬請期待 熱烈募資中!!!
 
 ![version2](src/version2.jpg)
