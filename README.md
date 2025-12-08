@@ -218,7 +218,7 @@ PORT=5001 python main.py
 
 ## 軟體功能/UIUX
 
-1. 無光晚餐風格介面 (Dining in the Dark UI)
+1. 介面 ( UI)
 
 - Web 遠端控制：手機瀏覽器即可設定監控時段、新增物品、綁定 Tag ID。
 
