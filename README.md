@@ -17,7 +17,9 @@ WANG WANG (忘忘仙貝) 是一個結合 IoT 技術的智慧出門提醒系統�
 
 讓使用者在忙碌的生活中，再次回到從從容容，游刃有餘！
 
-<!-- ![忘忘仙貝](src/version1.png) -->
+![旺旺仙貝](src/main.png)
+![細節](src/product.png)
+![pin](src/pin.png)
 
 ## 專案結構
 
@@ -42,10 +44,21 @@ wang_wang_project/
 
 3. 盤點 ：檢視後端資料是否有開啟物品偵測，若有啟動 RFID 讀卡機 掃描玄關置物區。若無則恢復待機。
 
-- Y 邏輯 ：若掃描到標籤 ID → 代表物品還在感測區內（未帶走）→ 判定為遺漏。
-- N 邏輯 ：若掃描不到標籤 ID → 代表物品已離開感測區 → 判定為已帶走。
+```
+- 模式 A：RFID 偵測 (add item 無填寫 MAC 位址)
+適用於鑰匙、錢包等被動式物品至於掃描盤上。
+邏輯：啟動讀卡機掃描玄關置物區。
+- Y 邏輯 ：若掃描到標籤 ID → 代表物品還在感測區內（未帶走）→ 判定為遺漏(Forgotten)。
+- N 邏輯 ：若掃描不到標籤 ID → 代表物品已離開感測區 → 判定為已帶走(Taken)。
 
-4. 通知 ：若判定有遺漏，透過 LINE Messaging API 發送推播通知至使用者手機。
+- 模式 B：藍牙 BLE 偵測 (add item 有填寫 MAC 位址)
+適用於手機、智慧手錶等主動發訊設備。
+邏輯：系統針對特定 MAC 進行掃描並分析訊號強度 (RSSI)。
+- Y 邏輯 ：訊號穩定 (RSSI 變動小) → 代表設備靜止於家中 → 判定為遺漏 (Forgotten)。
+- N 邏輯 ：訊號消失或變動劇烈 → 代表設備正在移動或遠離 → 判定為已帶走 (Taken)。
+```
+
+4. 通知（- Y 邏輯 Forgotten）：透過 LINE Messaging API 發送推播通知至使用者手機。
 
 5. 待機 : reset -> PIR 紅外線感測器
 
@@ -77,12 +90,28 @@ wang_wang_project/
 ### 詳細介接內容
 
 1. Camera：使用軟排線連接板上的 CSI 介面，藍色面朝向 USB 孔。
-2. 硬體需求 (Hardware Requirements)核心控制器: Raspberry Pi 4 Model B (建議 4GB+)
-3. 人員偵測: PIR Motion Sensor (HC-SR501)
-4. 物品感測: RFID-RC522 模組 (SPI 介面) + Tag 影像捕捉: Raspberry Pi Camera Module (CSI 介面)
-5. 網路連線: Wi-Fi 或 Ethernet 軟體環境與依賴 (Software Setup)系統設定請在 Raspberry Pi 上執行 sudo raspi-config 並啟用以下介面：Camera Interface (Legacy 或 Libcamera)SPI Interface (用於 RFID 讀取)
 
-# 安裝基礎套件與 GPIO 庫
+2. 硬體需求 (Hardware Requirements)：
+
+- 核心控制器: Raspberry Pi 4 Model B (建議 4GB+)
+
+- 人員偵測: PIR Motion Sensor (HC-SR501)
+
+- 物品感測 1: RFID-RC522 模組 (SPI 介面) + Tag
+
+- 物品感測 2: 內建藍牙晶片 (用於偵測手機/手錶)
+
+- 影像捕捉: Raspberry Pi Camera Module (CSI 介面)
+
+3. 軟體環境：
+
+- 需啟用 Camera Interface (Legacy 或 Libcamera)
+
+- 需啟用 SPI Interface (用於 RFID)
+
+- 需啟用 Bluetooth 介面
+
+## 安裝基礎套件與 GPIO 庫
 
 ### Python 套件安裝本專案使用 Python 3 開發，請執行以下指令安裝依賴：
 
@@ -100,7 +129,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 1. 建議使用現有虛擬環境 `.venv`。
 
-2. 安裝套件已寫在 requirements.txt（如尚未安裝）(內容包含 flask, requests, opencv-python-headless, spidev, mfrc522, pyserial)
+2. 安裝套件已寫在 requirements.txt（如尚未安裝）內容包含 flask, requests, opencv-python-headless, spidev, mfrc522, pyserial, bleak, asyncio）
 
 ```bash
 
@@ -123,11 +152,31 @@ PORT=5001 python main.py
 
 ```
 
-瀏覽：
+### 瀏覽：
 
 - 本機: http://127.0.0.1:5000 (或指定埠)
 
 - 區網: http://<你的局域網 IP>:5000
+
+### json 目前只能 1 個 item
+
+```
+{
+"system_enabled": true,
+"line_token": "YOUR_LINE_TOKEN",
+"line_user_id": "YOUR_USER_ID",
+"items": [
+{
+"name": "鑰匙",
+"start_time": "08:00",
+"end_time": "09:00",
+"enabled": true,
+"mac": "" || "XX:XX:XX:XX:XX:XX",
+}
+]
+}
+
+```
 
 ## 軟體功能/UIUX
 
@@ -151,8 +200,10 @@ PORT=5001 python main.py
 
 3. 智慧感測與通知
 
-- 雙重確認：結合 PIR + Camera，有效降低誤報率，反向偵測邏輯的利用 RFID 偵測物品「是否存在」於玄關，而非偵測物品是否離開，確保邏輯準確。
-
+- 雙重確認：結合 PIR + Camera，有效降低誤報率。
+- 混合偵測技術：
+- 反向偵測邏輯的利用 RFID 偵測物品「是否存在」於玄關，而非偵測物品是否離開，確保邏輯準確。
+- BLE 動態分析：分析藍牙訊號強度變化，判斷物品是否靜止（遺忘）或隨人移動（帶走）
 - LINE 推播：透過 Messaging API 發送推播，精準告知「遺漏了什麼物品」，而非籠統的警報聲。
 
 ### 主頁

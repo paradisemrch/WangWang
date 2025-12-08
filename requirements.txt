@@ -5,5 +5,7 @@ pyserial
 spidev
 mfrc522
 RPi.GPIO
+bleak
+asyncio
 
 
