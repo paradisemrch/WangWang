@@ -17,9 +17,9 @@ WANG WANG (忘忘仙貝) 是一個結合 IoT 技術的智慧出門提醒系統�
 
 讓使用者在忙碌的生活中，再次回到從從容容，游刃有餘！
 
-![旺旺仙貝](src/main.png)
-![細節](src/product.png)
-![pin](src/pin.png)
+![旺旺仙貝](src/main.jpg)
+![細節](src/product.jpg)
+![pin](src/pin.jpg)
 
 ## 專案結構
 
