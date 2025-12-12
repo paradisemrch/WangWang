@@ -63,26 +63,22 @@ wang_wang_project/
 
 4. 偵測 ：檢視後端資料是否有開啟物品偵測，若有啟動 RFID 讀卡機 掃描玄關置物區。若無則恢復待機。
    根據 data.json 設定，對有效時段內的物品進行檢查。
+   A. RFID 模式 (無 MAC 位址)
+   適用於鑰匙、錢包等被動式物品至於掃描盤上
+   邏輯：檢查「物品是否還在感測區」
+   掃描次數：10 次 (變數 check_times)
+   掃描間隔：0.1 秒
+   判定標準：
 
-```
-A. RFID 模式 (無 MAC 位址)
-適用於鑰匙、錢包等被動式物品至於掃描盤上
-邏輯：檢查「物品是否還在感測區」
-掃描次數：10 次 (變數 check_times)
-掃描間隔：0.1 秒
-判定標準：
-- Y 邏輯 ：10 次中有 任一次 讀到 ID → 判定為 遺漏 (Forgotten)。
-- N 邏輯 ：10 次都沒讀到 → 判定為 已帶走 (Taken)。
-
-B. 藍牙 BLE 模式 (有 MAC 位址)
-適用於手機、智慧手錶等主動發訊設備
-邏輯：蒐集訊號強度 (RSSI) 並分析穩定度
-掃描時長：10 秒 (變數 SCAN_DURATION)
-判定標準 (RSSI 差值)：
-- Y 邏輯 ：(最後一筆訊號 - 第一筆訊號) 的絕對值 <= 5 → 訊號穩定 (沒移動) → 判定為 遺漏 (Forgotten)。
-- N 邏輯 ：差值 > 5 或 數據不足 → 訊號變動 (正在移動) → 判定為 已帶走 (Taken)。
-
-```
+   - Y 邏輯 ：10 次中有 任一次 讀到 ID → 判定為 遺漏 (Forgotten)。
+   - N 邏輯 ：10 次都沒讀到 → 判定為 已帶走 (Taken)。
+     B. 藍牙 BLE 模式 (有 MAC 位址)
+     適用於手機、智慧手錶等主動發訊設備
+     邏輯：蒐集訊號強度 (RSSI) 並分析穩定度
+     掃描時長：10 秒 (變數 SCAN_DURATION)
+     判定標準 (RSSI 差值)：
+   - Y 邏輯 ：(最後一筆訊號 - 第一筆訊號) 的絕對值 <= 5 → 訊號穩定 (沒移動) → 判定為 遺漏 (Forgotten)。
+   - N 邏輯 ：差值 > 5 或 數據不足 → 訊號變動 (正在移動) → 判定為 已帶走 (Taken)。
 
 5. 通知與冷卻 (Notification & Cooldown)
    流程結束後的處理。
@@ -191,18 +187,18 @@ PORT=5001 python main.py
 
 ```
 {
-"system_enabled": true,
-"line_token": "YOUR_LINE_TOKEN",
-"line_user_id": "YOUR_USER_ID",
-"items": [
-{
-"name": "鑰匙",
-"start_time": "08:00",
-"end_time": "09:00",
-"enabled": true,
-"mac": "" || "XX:XX:XX:XX:XX:XX",
-}
-]
+   "system_enabled": true,
+   "line_token": "YOUR_LINE_TOKEN",
+   "line_user_id": "YOUR_USER_ID",
+   "items": [
+      {
+         "name": "鑰匙",
+         "start_time": "08:00",
+         "end_time": "09:00",
+         "enabled": true,
+         "mac": "" || "XX:XX:XX:XX:XX:XX",
+      }
+   ]
 }
 
 ```
