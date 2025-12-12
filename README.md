@@ -1,5 +1,7 @@
 # WANG WANG | 忘忘仙貝
 
+[專案影片 Youtube short](https://youtube.com/shorts/Rhv0wPm-YoY)
+
 「在遺忘的深淵裡，燃起希望的貝殼。」
 
 ![專案海報](src/version1.png)
@@ -72,11 +74,13 @@ wang_wang_project/
 
    - Y 邏輯 ：10 次中有 任一次 讀到 ID → 判定為 遺漏 (Forgotten)。
    - N 邏輯 ：10 次都沒讀到 → 判定為 已帶走 (Taken)。
-     B. 藍牙 BLE 模式 (有 MAC 位址)
-     適用於手機、智慧手錶等主動發訊設備
-     邏輯：蒐集訊號強度 (RSSI) 並分析穩定度
-     掃描時長：10 秒 (變數 SCAN_DURATION)
-     判定標準 (RSSI 差值)：
+
+   B. 藍牙 BLE 模式 (有 MAC 位址)
+   適用於手機、智慧手錶等主動發訊設備
+   邏輯：蒐集訊號強度 (RSSI) 並分析穩定度
+   掃描時長：10 秒 (變數 SCAN_DURATION)
+   判定標準 (RSSI 差值)：
+
    - Y 邏輯 ：(最後一筆訊號 - 第一筆訊號) 的絕對值 <= 5 → 訊號穩定 (沒移動) → 判定為 遺漏 (Forgotten)。
    - N 邏輯 ：差值 > 5 或 數據不足 → 訊號變動 (正在移動) → 判定為 已帶走 (Taken)。
 
