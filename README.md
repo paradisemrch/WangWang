@@ -19,9 +19,11 @@ WANG WANG (忘忘仙貝) 是一個結合 IoT 技術的智慧出門提醒系統�
 
 讓使用者在忙碌的生活中，再次回到從從容容，游刃有餘！
 
-![旺旺仙貝](src/main.jpg)
-![細節](src/product.jpg)
-![pin](src/pin.jpg)
+![產品：旺旺仙貝](src/main.jpg)
+![產品：貝殼](src/shell.jpg)
+![產品：貝殼](src/shell_1.jpg)
+![產品：細節](src/product.jpg)
+![產品：pin](src/pin.jpg)
 
 ## 專案結構
 
@@ -38,7 +40,7 @@ wang_wang_project/
 
 ### 核心運作流程
 
-![架構](src/structer.jpg)
+![核心運作流程](src/structer.jpg)
 
 1. 初始化與歸零 (PIR Reset)
    這是為了防止上一次的動作殘留導致無限觸發。
@@ -93,7 +95,7 @@ wang_wang_project/
 
 ## 接線圖
 
-![架構](src/resberry_pi.png)
+![接線圖](src/resberry_pi.png)
 
 硬體接線示意圖本專案採用特殊的腳位配置以避免 PIR 與 RFID 的電源衝突，請務必依照圖表連接。
 
@@ -218,7 +220,7 @@ PORT=5001 python main.py
 
 ## 軟體功能/UIUX
 
-1. 介面 ( UI)
+1. 介面 (UI)
 
 - Web 遠端控制：手機瀏覽器即可設定監控時段、新增物品、綁定 Tag ID。
 
